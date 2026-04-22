@@ -1,5 +1,7 @@
 # Workshop: Build & Optimize AI Agents On Microsoft Foundry With Azure Skills
 
+> 🚧 **This repository is under active development** - Please check back for updates.
+
 This is a hands-on workshop to explore and use [Azure Skills](https://learn.microsoft.com/en-us/azure/developer/azure-skills/) with the [GitHub Copilot](https://docs.github.com/en/copilot) AI coding assistant on [VS Code](https://code.visualstudio.com/docs/copilot/overview) — to create, build, deploy, observe, and troubleshoot an AI agent on [Microsoft Foundry](https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry).
 
 ## 1. Pre-Requisites
