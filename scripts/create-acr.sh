@@ -8,6 +8,7 @@
 #    2. Discovers the Foundry managed identity
 #    3. Assigns all required RBAC roles:
 #       - Container Registry Repository Reader → ACR
+#       - AcrPull → ACR (Foundry hosted agents need this to pull images)
 #       - Cognitive Services OpenAI User → AI Services
 #       - Monitoring Metrics Publisher → Resource Group
 #    4. Logs into the ACR so Docker pushes work
@@ -232,6 +233,12 @@ assign_role \
     "${ACR_ID}" \
     "Container Registry Repository Reader → ACR"
 
+# Role 1b: AcrPull → ACR (needed for Foundry hosted agents to pull container images)
+assign_role \
+    "AcrPull" \
+    "${ACR_ID}" \
+    "AcrPull → ACR"
+
 # Role 2: Cognitive Services OpenAI User → AI Services account
 AI_ACCOUNT_ID=$(az cognitiveservices account show \
     --name "${AI_ACCOUNT_NAME}" \
@@ -268,6 +275,7 @@ echo ""
 echo -e "${CYAN}  ACR:       ${ACR_NAME}.azurecr.io${NC}"
 echo -e "${CYAN}  Identity:  ${AI_ACCOUNT_NAME} (${PRINCIPAL_ID:0:8}...)${NC}"
 echo -e "${CYAN}  Roles:     Container Registry Repository Reader${NC}"
+echo -e "${CYAN}             AcrPull${NC}"
 echo -e "${CYAN}             Cognitive Services OpenAI User${NC}"
 echo -e "${CYAN}             Monitoring Metrics Publisher${NC}"
 echo -e "${CYAN}──────────────────────────────────────────────────────────${NC}"

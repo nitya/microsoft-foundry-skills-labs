@@ -208,6 +208,7 @@ else
 fi
 
 # ── Find Application Insights ──
+az extension add --name application-insights --yes 2>/dev/null || true
 APPINSIGHTS_CS=$(az resource list \
     --resource-group "${SELECTED_RG}" \
     --resource-type "Microsoft.Insights/components" \

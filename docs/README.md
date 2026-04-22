@@ -54,8 +54,8 @@ Complete Steps A–C in the **Azure/Foundry portal** before returning to Codespa
 
 #### Step A — Foundry Project
 
-1. Visit [https://ai.azure.com](https://ai.azure.com) and sign in with your Azure account
-2. Click **Create project** (or go to **Templates** → **Start building** → **Create a new project**)
+1. Visit [https://ai.azure.com/templates](https://ai.azure.com/templates) and sign in with your Azure account
+2. Click **Start building** → **Create a new project**)
 3. Fill in the project details:
    - **Project name:** `zava-outdoors-project` (or any name you prefer)
    - **Resource group:** select **Create new** → name it `zava-outdoors-rg`
@@ -72,49 +72,68 @@ Complete Steps A–C in the **Azure/Foundry portal** before returning to Codespa
 
 ---
 
-#### Step B — Deploy Model
+#### Step B — Create Agent
 
-The agent needs a deployed LLM to generate responses. This model also serves as
-the evaluation judge in Module 4.
+Complete the `Create Agent` workflow to setup a default _prompt_ agent with a _deployed model_ (e.g., gpt-4.1). This model also serves as the evaluation judge in Module 4.
 
-1. In the Foundry portal, navigate to your project
-2. Go to **Models + endpoints** in the left sidebar
-3. Click **+ Deploy model** → **Deploy base model**
-4. Search for and select **`gpt-4.1`** (recommended) or `gpt-4o-mini` (fallback)
-5. Configure deployment:
-   - **Deployment name:** `gpt-4.1` (keep the default)
-   - **Tokens per minute (TPM):** set to **≥30K** (needed for batch evaluation)
-6. Click **Deploy** and wait for the model to become available
-7. **Verify:** the model appears in **Models + endpoints** with status `Succeeded`
-
-> 📝 Note the **Deployment name** — this is your `AZURE_AI_MODEL_DEPLOYMENT_NAME` value.
-
----
-
-#### Step C — Test Agent & App Insights
-
-Creating a quick agent in the portal gives you a working playground and lets you
-connect Application Insights (required for tracing in Module 4).
-
-1. From the project landing page, click **Create agent**
-2. Give it a name: `zava-outdoors-test`
+2. Give it a name: `zava-travel-portal`
 3. Wait for agent creation (~1–2 min)
 4. You should see the **Agent Playground** — this confirms your project is agent-ready
-5. **Save the agent** when prompted
+5. **Save the agent** when prompted - you should see v1.
 
 Now connect Application Insights for observability:
 
 6. Click the **Traces** tab (above the response panel)
 7. Click **Connect** to create an Application Insights resource
 8. Fill in the details:
-   - Accept the default name or enter `zava-outdoors-appinsights`
+   - Accept the default name or enter `zava-agent-appinsights`
    - Ensure it creates a new **Log Analytics workspace**
 9. Click **Create** and wait for provisioning (~1 min)
 10. **Verify:** go to project name drop-down (top left) → **Project Details** → **Connected Resources** tab
     - You should see the Application Insights resource listed
+10. **Verify:** go to **Models** in sidebar → Verify you see a chat model and an embedding model deployed by default.
 
 > 📝 The App Insights **Connection String** will be auto-discovered by `setup-env.sh`,
 > or you can find it in: Azure Portal → Application Insights → Overview → Connection String.
+> 📝 Note the **Deployment name** — this is your `AZURE_AI_MODEL_DEPLOYMENT_NAME` value.
+
+---
+
+#### Step C — Update Agent & Test App Insights
+
+Creating a quick agent in the portal gives you a working playground and lets you connect Application Insights (required for tracing in Module 4).
+
+1. Return to the **Agents** panel and select the created agent.
+1. Update it with these instructions
+   ```bash
+   You are the Zava Travel Concierge, a friendly and knowledgeable travel assistant.
+
+   Your responsibilities:
+   - Help customers plan trips by answering questions about destinations, travel tips, and logistics
+   - Provide helpful, accurate, and concise travel advice
+   - Be warm and professional in your responses
+   - When you don't have specific data, provide general travel guidance
+   - Always mention that Contoso Travel can help with flights, hotels, and car rentals
+   - Use the provided tools to look up relevant information for the request and provide citations. Keep responses short, factual and friendly.
+
+   Tool Usage Guidelines:
+   - ALWAYS use the web_search tool before providing or citing any current, real-world data such as hotel prices, weather forecasts, flight or hotel availability, or other time-sensitive information. Do NOT fabricate real-time external data or rely on prior training data for such facts; only provide them after confirming with a tool call.
+   - For vague or broad user queries (e.g., vague destination or service requests), proactively use web_search to gather suggestions and relevant information, AND ask clarifying questions as needed. Do not limit yourself to only follow-up queries—use web_search to supply initial helpful ideas.
+   - For requests that are outside your scope (e.g., Python scripting, stock advice, or any non-travel topic), politely decline and clarify that you are a travel assistant only, and whenever possible, redirect the user with a helpful travel suggestion or resource. For safety or policy-violating requests (e.g., sneaking prohibited items, evading sanctions), firmly refuse, clearly explaining why you cannot assist, referencing safety, legality, or policy as needed.
+
+   Remember:
+   You are representing Contoso Travel, a premium travel agency.
+   Keep responses focused and helpful.
+   ```
+1. **Save the agent** when prompted (gives a new version)
+1. Test it with a prompt: `Hi. I'm thinking about planning a trip to Paris. What should I know?`
+1. Click on the `Traces` tab and look at the responses
+   - You should see a trace of the execution flow
+   - You should see evaluatons for that response
+   - You should see a monitor tab with agent metrics
+
+_This is a prompt agent endpoint we can use as an alternative target for our observe loop later_.
+
 
 ---
 
@@ -212,7 +231,7 @@ az account show   # confirm correct subscription
 Open a **new terminal** in VS Code (`Ctrl+`` ` or **Terminal → New Terminal**), then start the GitHub Copilot CLI:
 
 ```bash
-ghcs
+copilot
 ```
 
 Wait for the Copilot CLI prompt to appear before continuing. All commands in Modules 1–5 run inside this CLI session.
@@ -378,7 +397,7 @@ Validate the response:
 
 ```
 Test with one more query:
-"Can I use the EcoFire stove inside my tent?"
+"Can I use the EcoFire Camping stove inside my tent?"
 ```
 
 Validate the agent returns a safety warning.

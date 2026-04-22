@@ -3,6 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Created projects
+samples/*
+zava-outdoors/**/*
+zava-travel/**/*
+
+
 # C extensions
 *.so
 
