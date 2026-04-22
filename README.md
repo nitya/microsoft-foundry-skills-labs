@@ -20,3 +20,11 @@ By the end of this workshop you should be able to:
 1. Deploy it as a hosted agent to Microsoft Foundry
 
 ## 3. Getting Started
+
+The repository is instrumented with a _devcontainer_ that should have all the required tools and dependencies. For a quick start:
+
+1. Fork this repo to your personal profile
+1. Open the fork in a new tab on your browser
+1. Launch GitHub Codespaces on that fork
+1. Wait till the VS Code environment is ready (in new browser tab)
+1. Open the [docs/README.md](docs/README.md) and follow instructions.
