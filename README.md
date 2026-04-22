@@ -14,7 +14,7 @@ This is a hands-on workshop to explore and use [Azure Skills](https://learn.micr
 
 By the end of this workshop you should be able to:
 
-1. Use Copilot CLI to generate and manage Azure rsources
+1. Use Copilot CLI to generate and manage Azure resources
 1. Apply`microsoft-foundry` skill to buid-deploy-observe agents
 1. Create a retail AI chatbot with custom data & tools
 1. Deploy it as a hosted agent to Microsoft Foundry
@@ -27,4 +27,5 @@ The repository is instrumented with a _devcontainer_ that should have all the re
 1. Open the fork in a new tab on your browser
 1. Launch GitHub Codespaces on that fork
 1. Wait till the VS Code environment is ready (in new browser tab)
-1. Open the [docs/README.md](docs/README.md) and follow instructions.
+1. Open the [docs/README.md](docs/README.md) and follow the step-by-step workshop instructions.
+1. See [docs/PLAN.md](docs/PLAN.md) for the high-level workshop plan and product catalog reference.
