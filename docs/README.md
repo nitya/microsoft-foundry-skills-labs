@@ -1,10 +1,10 @@
-# Zava Outdoors Workshop — Hands-On Instructions
+# Build An AI Agent with Foundry Skills
 
 > **Duration:** 60 minutes &nbsp;|&nbsp; **Format:** Hands-on, instructor-led &nbsp;|&nbsp; **Level:** Intermediate
 >
 > Build, deploy, evaluate, and optimize a retail AI chatbot for **Zava Outdoors** — an outdoor gear company — using **Azure Skills** and the **`microsoft-foundry`** skill inside GitHub Copilot.
 
-## Workshop Modules
+## Outline
 
 | # | Module | What You'll Achieve |
 |---|--------|---------------------|
@@ -17,9 +17,7 @@
 
 ---
 
-## Before You Begin
-
-### Pre-Requisites Checklist
+## Pre-Requisites
 
 - [ ] GitHub account with Codespaces quota
 - [ ] GitHub Copilot Pro subscription (Claude model access recommended)
