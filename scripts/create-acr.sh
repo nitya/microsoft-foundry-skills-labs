@@ -2,7 +2,7 @@
 # ============================================================
 #  Zava Outdoors Workshop — Create ACR & Assign Roles
 # ============================================================
-#  This script automates Step D of Module 0:
+#  This script automates section 0.5 (Create ACR & Roles) of Module 0:
 #    1. Creates an Azure Container Registry (Basic SKU)
 #       in the same resource group as your Foundry project
 #    2. Discovers the Foundry managed identity
@@ -105,8 +105,8 @@ if [ -z "${ACR_NAME}" ]; then
     if [ -n "${ACR_NAME}" ]; then
         echo -e "${GREEN}  ✓ Found existing ACR: ${ACR_NAME}${NC}"
     else
-        # Generate a name from the resource group (lowercase, no dashes, max 50 chars)
-        ACR_NAME=$(echo "${AZURE_RESOURCE_GROUP}" | tr -d '-_' | tr '[:upper:]' '[:lower:]')
+        # Generate a name from the resource group (only a-z0-9, max 50 chars)
+        ACR_NAME=$(echo "${AZURE_RESOURCE_GROUP}" | tr -cd 'a-zA-Z0-9' | tr '[:upper:]' '[:lower:]')
         ACR_NAME="${ACR_NAME}acr"
         ACR_NAME="${ACR_NAME:0:50}"
         echo -e "${YELLOW}  No ACR found. Will create: ${ACR_NAME}${NC}"

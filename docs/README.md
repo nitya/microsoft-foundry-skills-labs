@@ -27,7 +27,7 @@
 
 ## Module 0 — Project Setup
 
-### 0.1 Fork & Launch Codespaces
+### 0.1 Fork & Codespaces
 
 1. Fork this repo to your personal GitHub profile
 2. On your fork, click **Code → Codespaces → Create codespace on main**
@@ -42,7 +42,7 @@ az --version       # 2.x
 azd version        # latest
 ```
 
-### 0.3 Provision Azure Resources (Portal)
+### 0.3 Provision Resources (Portal)
 
 You need a Foundry project with a deployed model and Application Insights.
 Complete Steps A–C in the **Azure/Foundry portal** before returning to Codespaces.
@@ -52,7 +52,7 @@ Complete Steps A–C in the **Azure/Foundry portal** before returning to Codespa
 
 ---
 
-#### Step A — Create a Foundry Project
+#### Step A — Foundry Project
 
 1. Visit [https://ai.azure.com](https://ai.azure.com) and sign in with your Azure account
 2. Click **Create project** (or go to **Templates** → **Start building** → **Create a new project**)
@@ -72,7 +72,7 @@ Complete Steps A–C in the **Azure/Foundry portal** before returning to Codespa
 
 ---
 
-#### Step B — Deploy a Chat Model
+#### Step B — Deploy Model
 
 The agent needs a deployed LLM to generate responses. This model also serves as
 the evaluation judge in Module 4.
@@ -91,7 +91,7 @@ the evaluation judge in Module 4.
 
 ---
 
-#### Step C — Create a Test Agent & Activate Application Insights
+#### Step C — Test Agent & App Insights
 
 Creating a quick agent in the portal gives you a working playground and lets you
 connect Application Insights (required for tracing in Module 4).
@@ -118,7 +118,7 @@ Now connect Application Insights for observability:
 
 ---
 
-### 0.4 Configure Your Environment (CLI)
+### 0.4 Configure Environment (CLI)
 
 The repo includes `scripts/sample.env` (template) and `scripts/setup-env.sh` (auto-discovery script).
 
@@ -143,7 +143,10 @@ cp scripts/sample.env .env
 
 Then edit `.env` and fill in the values. Each variable includes a comment explaining where to find it in the Azure/Foundry portal.
 
-### 0.5 Create ACR & Assign Roles (CLI)
+> ⚠️ **Verify model name:** Confirm `AZURE_AI_MODEL_DEPLOYMENT_NAME` in `.env` matches the exact
+> deployment name from Step B (e.g., `gpt-4.1`). If you deployed `gpt-4o-mini` instead, update it now.
+
+### 0.5 Create ACR & Roles (CLI)
 
 Now create the Azure Container Registry and assign RBAC roles. The `create-acr.sh`
 script automates the entire process.
@@ -170,7 +173,7 @@ The script will:
 > ⚠️ **Note:** The script uses `Container Registry Repository Reader` (not `AcrPull`)
 > because hosted agents use ABAC repo-scoped permissions.
 
-#### Summary of Azure Resources
+#### Resource Summary
 
 After completing Steps 0.3–0.5, you should have:
 
@@ -181,7 +184,7 @@ After completing Steps 0.3–0.5, you should have:
 | **Application Insights** | `zava-outdoors-appinsights` | Tracing and observability |
 | **Container Registry** | `zavaoutdoorsacr` | Docker images for hosted agent |
 
-### 0.6 Load Environment Variables
+### 0.6 Load Environment
 
 ```bash
 set -a && source .env && set +a
@@ -204,7 +207,17 @@ az account show   # confirm correct subscription
 > workflows — manage resources, deploy apps, and monitor services from your editor.
 > 📖 [Overview](https://learn.microsoft.com/en-us/azure/developer/azure-skills/overview)
 
-### 1.1 Install the Plugin
+### 1.0 Launch Copilot CLI
+
+Open a **new terminal** in VS Code (`Ctrl+`` ` or **Terminal → New Terminal**), then start the GitHub Copilot CLI:
+
+```bash
+ghcs
+```
+
+Wait for the Copilot CLI prompt to appear before continuing. All commands in Modules 1–5 run inside this CLI session.
+
+### 1.1 Install Plugin
 
 In the **Copilot CLI** terminal:
 
@@ -221,7 +234,7 @@ In the **Copilot CLI** terminal:
 
 You should see `azure@azure-skills` with available skills including `microsoft-foundry`.
 
-### 1.3 Test Connectivity
+### 1.3 Test Connection
 
 ```
 List my Azure subscriptions
@@ -229,7 +242,7 @@ List my Azure subscriptions
 
 Copilot queries Azure and shows your subscription(s).
 
-### 1.4 Confirm the Foundry Skill
+### 1.4 Confirm Foundry Skill
 
 ```
 What skills do you have available for Microsoft Foundry?
@@ -253,7 +266,7 @@ Look for the **microsoft-foundry** skill tag in the response header.
 product questions, recommends gear, and helps customers shop. All data lives under
 `zava-outdoors/data/` — the single source of truth for the agent's product knowledge.
 
-### 2.1 Scaffold the Agent
+### 2.1 Scaffold Agent
 
 ```
 Create a hosted agent project in a folder called zava-outdoors/ for "Zava Outdoors",
@@ -276,7 +289,7 @@ ls zava-outdoors/
 # Expected: main.py  agent.yaml  Dockerfile  requirements.txt
 ```
 
-### 2.2 Create the Product Catalog
+### 2.2 Product Catalog
 
 ```
 Create zava-outdoors/data/products.json with this outdoor product catalog:
@@ -310,7 +323,7 @@ For care_instructions include cleaning method, drying, and storage guidance.
 For safety_notes include relevant warnings (e.g. no stove use inside tents, season limits for sleeping bags).
 ```
 
-### 2.3 Configure the Agent System Prompt
+### 2.3 System Prompt
 
 ```
 Set the system instructions for the zava-outdoors agent:
@@ -335,7 +348,7 @@ RULES:
 BRANDS: OutdoorLiving, HikeMate, MountainStyle, TrekReady, CampBuddy, EcoFire, CozyNights, AlpineGear
 ```
 
-### 2.4 Wire the Product Data into the Agent
+### 2.4 Wire Product Data
 
 > ⚠️ **Critical step** — the agent scaffold won't automatically use the catalog. You must explicitly connect it.
 
@@ -383,7 +396,7 @@ Validate the agent returns a safety warning.
 
 **Goal:** Deploy the agent as a hosted agent on Foundry.
 
-### 3.1 Verify Environment Variables
+### 3.1 Verify Environment
 
 Your `.env` should already be loaded from Module 0. Confirm:
 
@@ -413,7 +426,7 @@ Step 3: Creating agent version 1...
 Agent deployment complete!
 ```
 
-### 3.3 Verify the Deployed Agent
+### 3.3 Verify Deployment
 
 ```
 Invoke the zava-outdoors-agent with the query:
@@ -422,7 +435,7 @@ Invoke the zava-outdoors-agent with the query:
 
 Confirm it responds with the CozyNights Sleeping Bag ($100, 3-season, synthetic).
 
-### 💡 Troubleshooting Deployment
+### 💡 Troubleshooting
 
 | Symptom | Likely Cause | Fix |
 |---------|-------------|-----|
@@ -443,7 +456,7 @@ Confirm it responds with the CozyNights Sleeping Bag ($100, 3-season, synthetic)
 
 **Goal:** Run a baseline evaluation and identify areas for improvement.
 
-### 4.1 Create an Evaluation Dataset
+### 4.1 Evaluation Dataset
 
 ```
 Create an evaluation dataset at zava-outdoors/.foundry/datasets/eval_baseline.jsonl
@@ -475,7 +488,7 @@ Each line should have "query" and "expected_behavior" fields:
    expected_behavior: "Care instructions: spot clean or gentle machine wash, hang dry, store dry"
 ```
 
-### 4.2 Run the Baseline Evaluation
+### 4.2 Run Baseline Eval
 
 ```
 Run a batch evaluation against zava-outdoors-agent using
@@ -485,7 +498,7 @@ Use evaluators: relevance, task_adherence, intent_resolution, indirect_attack
 
 Results are saved under `.foundry/results/`.
 
-### 4.3 Analyze Results
+### 4.3 Analyze
 
 ```
 Give me an overview of the evaluation results for zava-outdoors-agent.
@@ -494,7 +507,7 @@ Highlight areas that need the most improvement.
 
 Note your baseline scores — you'll compare after optimization.
 
-### 4.4 Trace Analysis (if time permits)
+### 4.4 Trace Analysis
 
 ```
 Give me an overview of agent run summary for zava-outdoors-agent
@@ -515,7 +528,7 @@ in recent traces, and highlight issues worth attention.
 
 **Goal:** Improve the agent using prompt optimization, then redeploy and compare.
 
-### 5.1 Optimize the Agent Prompt
+### 5.1 Optimize Prompt
 
 ```
 Optimize the system prompt for zava-outdoors-agent based on the evaluation results.
@@ -530,7 +543,7 @@ The optimizer:
 - Generates improved instructions
 - Logs changes to `.foundry/OPTIMIZATION_LOG.md`
 
-### 5.2 Review the Optimized Instructions
+### 5.2 Review Changes
 
 ```
 Show me the optimized instructions and explain what changed.
@@ -543,7 +556,7 @@ Common optimization areas:
 - **Comparison format** — consistent table layout with key differentiators
 - **Safety escalation** — explicit warnings drawn from `safety_notes` field
 
-### 5.3 Redeploy the Optimized Agent
+### 5.3 Redeploy
 
 ```
 Deploy the optimized version of the zava-outdoors agent to Foundry
@@ -551,7 +564,7 @@ Deploy the optimized version of the zava-outdoors agent to Foundry
 
 This creates **version 2** of the hosted agent.
 
-### 5.4 Re-Evaluate and Compare
+### 5.4 Re-Evaluate
 
 ```
 Run the same batch evaluation against the optimized zava-outdoors-agent
@@ -565,7 +578,7 @@ and compare results with the baseline.
 | Intent Resolution | ? | ? | ⬆ improvement |
 | Safety (indirect attack) | ? | ? | maintain ≥95% |
 
-### 5.5 Decide: Promote or Iterate
+### 5.5 Promote or Iterate
 
 ```
 Show me the comparison between baseline and optimized evaluation results.

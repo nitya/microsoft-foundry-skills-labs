@@ -38,12 +38,12 @@ All agent code and data are created inside a **`zava-outdoors/`** project folder
 
 | Module | Title | Time | Key Activity |
 |--------|-------|------|--------------|
-| **M0** | Environment & Azure Setup | 5 min | Fork repo, Codespaces, provision Foundry project + model + App Insights, run `scripts/setup-env.sh` then `scripts/create-acr.sh` |
-| **M1** | Install Azure Skills | 10 min | Plugin install, verify `microsoft-foundry` skill |
-| **M2** | Build the Agent | 15 min | Scaffold `zava-outdoors/`, product data, system prompt, wire data, local test |
-| **M3** | Deploy to Foundry | 10 min | ACR build, hosted agent deploy, invoke to verify |
+| **M0** | Project Setup | 5 min | Fork repo, Codespaces, provision Foundry project + model + App Insights, run `scripts/setup-env.sh` then `scripts/create-acr.sh` |
+| **M1** | Azure Skills Setup | 10 min | Launch Copilot CLI, plugin install, verify `microsoft-foundry` skill |
+| **M2** | Build Agent | 15 min | Scaffold `zava-outdoors/`, product data, system prompt, wire data, local test |
+| **M3** | Deploy Agent | 10 min | ACR build, hosted agent deploy, invoke to verify |
 | **M4** | Evaluate & Observe | 10 min | Eval dataset, baseline evaluation, analyze results |
-| **M5** | Optimize & Redeploy | 10 min | Prompt optimizer, redeploy v2, compare scores |
+| **M5** | Optimize & Iterate | 10 min | Prompt optimizer, redeploy v2, compare scores |
 
 ---
 

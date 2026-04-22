@@ -9,8 +9,8 @@
 #    4. Reports which values still need manual entry
 #
 #  Usage:
-#    chmod +x setup-env.sh
-#    ./setup-env.sh
+#    chmod +x scripts/setup-env.sh
+#    ./scripts/setup-env.sh
 #
 #  Prerequisites:
 #    - Azure CLI (az) installed and logged in
