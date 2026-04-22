@@ -63,7 +63,7 @@ All agent code and data are created inside a **`zava-outdoors/`** project folder
 
 The repo provides `scripts/sample.env` (template), `scripts/setup-env.sh` (auto-discovery), and `scripts/create-acr.sh` (ACR + RBAC).
 Run `scripts/setup-env.sh` after creating your Foundry project, then `scripts/create-acr.sh` to create the ACR and assign roles.
-See [docs/README.md → Module 0](README.md#module-0--environment--foundry-project-setup-5-min) for full details.
+See [docs/README.md → Module 0](README.md#module-0--project-setup) for full details.
 
 ---
 

@@ -4,6 +4,17 @@
 >
 > Build, deploy, evaluate, and optimize a retail AI chatbot for **Zava Outdoors** — an outdoor gear company — using **Azure Skills** and the **`microsoft-foundry`** skill inside GitHub Copilot.
 
+## Workshop Modules
+
+| # | Module | What You'll Achieve |
+|---|--------|---------------------|
+| 0 | [Project Setup](#module-0--project-setup) | Fork repo, launch Codespaces, provision Azure resources, configure environment |
+| 1 | [Azure Skills Setup](#module-1--azure-skills-setup) | Install Azure Skills extension and activate the `microsoft-foundry` skill |
+| 2 | [Build Agent](#module-2--build-agent) | Scaffold the Zava Outdoors agent with product data, Dockerfile, and agent.yaml |
+| 3 | [Deploy Agent](#module-3--deploy-agent) | Containerize and deploy the agent as a hosted agent on Microsoft Foundry |
+| 4 | [Evaluate & Observe](#module-4--evaluate--observe) | Run batch evaluations, review traces, and analyze agent quality |
+| 5 | [Optimize & Iterate](#module-5--optimize--iterate) | Optimize prompts, redeploy, and compare evaluation results |
+
 ---
 
 ## Before You Begin
@@ -16,7 +27,7 @@
 
 ---
 
-## Module 0 — Environment & Foundry Project Setup (5 min)
+## Module 0 — Project Setup
 
 ### 0.1 Fork & Launch Codespaces
 
@@ -189,7 +200,7 @@ az account show   # confirm correct subscription
 
 ---
 
-## Module 1 — Install & Configure Azure Skills (10 min)
+## Module 1 — Azure Skills Setup
 
 > **What are Azure Skills?** Agent skills that extend GitHub Copilot with Azure-specific
 > workflows — manage resources, deploy apps, and monitor services from your editor.
@@ -238,7 +249,7 @@ Look for the **microsoft-foundry** skill tag in the response header.
 
 ---
 
-## Module 2 — Build the Zava Outdoors Agent (15 min)
+## Module 2 — Build Agent
 
 **Goal:** Create a retail AI chatbot in a `zava-outdoors/` project folder that answers
 product questions, recommends gear, and helps customers shop. All data lives under
@@ -370,7 +381,7 @@ Validate the agent returns a safety warning.
 
 ---
 
-## Module 3 — Deploy to Microsoft Foundry (10 min)
+## Module 3 — Deploy Agent
 
 **Goal:** Deploy the agent as a hosted agent on Foundry.
 
@@ -430,7 +441,7 @@ Confirm it responds with the CozyNights Sleeping Bag ($100, 3-season, synthetic)
 
 ---
 
-## Module 4 — Evaluate & Observe (10 min)
+## Module 4 — Evaluate & Observe
 
 **Goal:** Run a baseline evaluation and identify areas for improvement.
 
@@ -502,7 +513,7 @@ in recent traces, and highlight issues worth attention.
 
 ---
 
-## Module 5 — Optimize & Redeploy (10 min)
+## Module 5 — Optimize & Iterate
 
 **Goal:** Improve the agent using prompt optimization, then redeploy and compare.
 
